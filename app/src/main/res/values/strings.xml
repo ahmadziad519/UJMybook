@@ -6,4 +6,24 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="go_to_signup">not a user ?<u>sign up here</u>... </string>
+    <string name="login_sentence">Reading a book is creating
+        new way for your future.</string>
+    <string-array name="colleges">
+        <item>Agriculture</item>
+        <item>Archaeology and Tourism</item>
+        <item>Art</item>
+        <item>Art and Design</item>
+        <item>Business</item>
+        <item>Educational Sciences</item>
+        <item>Engineering</item>
+        <item>Foreign languages</item>
+        <item>History</item>
+        <item>IT</item>
+        <item>Law</item>
+        <item>Mathmatics</item>
+        <item>Physical Education</item>
+        <item>Science</item>
+        <item>Shariaa</item>
+    </string-array>
 </resources>

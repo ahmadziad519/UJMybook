@@ -1,5 +1,6 @@
-package com.uj.mybook;
+package com.uj.mybook.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,9 +13,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.uj.mybook.R;
+import com.uj.mybook.login_signup.Login;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private Button btnSignout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +31,18 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        Toast.makeText(MainActivity.this, user.getUid(), Toast.LENGTH_LONG).show();
+
+        btnSignout = findViewById(R.id.signout);
+        btnSignout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(MainActivity.this, Login.class));
+                finish();
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
