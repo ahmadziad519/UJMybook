@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#0288D1</color>
     <color name="colorAccent">#D81B60</color>
     <color name="light_gray">#E0E0E0</color>
+    <color name="gray">#9E9E9E</color>
+    <color name="gray_nav">#4a4a4a</color>
+    <color name="blue_nav">#0190cf</color>
 </resources>
