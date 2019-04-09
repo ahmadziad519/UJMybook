@@ -26,4 +26,19 @@
         <item>Science</item>
         <item>Shariaa</item>
     </string-array>
+
+    <string-array name="book_categories">
+        <item>Advanture</item>
+        <item>Drama</item>
+        <item>History</item>
+        <item>Horror</item>
+        <item>Mystery</item>
+        <item>Romance</item>
+        <item>Satire</item>
+        <item>Science fiction</item>
+        <item>Self Help</item>
+        <item>Sport</item>
+    </string-array>
+
+
 </resources>

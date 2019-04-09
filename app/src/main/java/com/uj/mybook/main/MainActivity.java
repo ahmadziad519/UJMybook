@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -31,6 +32,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.uj.mybook.R;
 import com.uj.mybook.login_signup.Login;
+import com.uj.mybook.profile.Profile;
+import com.uj.mybook.sell_book.BookSeller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,7 +120,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            Intent a = new Intent(Intent.ACTION_MAIN);
+            a.addCategory(Intent.CATEGORY_HOME);
+            a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(a);
         }
     }
 
@@ -132,8 +138,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.exchange) {
             showColleges();
         } else if (id == R.id.sell) {
+            startActivity(new Intent(MainActivity.this, BookSeller.class));
 
         } else if (id == R.id.account) {
+            startActivity(new Intent(MainActivity.this, Profile.class));
 
         } else if (id == R.id.about) {
 
@@ -264,6 +272,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (!TextUtils.isEmpty(stImageUrl)) {
             Glide.with(this).load(stImageUrl).into(userPicture);
         }
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        String stImageUrl = preferences.getString("imageUrl", "");
+        Log.i("hhh", "onRestart: " + stImageUrl);
+        if (!TextUtils.isEmpty(stImageUrl)) {
+            Glide.with(this).load(stImageUrl).into(userPicture);
+        }
+        userPicture.invalidate();
 
     }
 
