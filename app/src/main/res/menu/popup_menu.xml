@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/agri"
+        android:title="Agriculture"/>
+
+    <item android:id="@+id/arch"
+        android:title="Archaeology and Tourism"/>
+
+    <item android:id="@+id/art"
+        android:title="Art"/>
+
+    <item android:id="@+id/design"
+        android:title="Art and Design"/>
+
+    <item android:id="@+id/business"
+        android:title="Business"/>
+
+    <item android:id="@+id/edu_sciences"
+        android:title="Educational Sciences"/>
+
+    <item android:id="@+id/eng"
+        android:title="Engineering"/>
+
+    <item android:id="@+id/lang"
+        android:title="Foreign languages"/>
+
+    <item android:id="@+id/history"
+        android:title="History"/>
+
+    <item android:id="@+id/it"
+        android:title="IT"/>
+
+    <item android:id="@+id/law"
+        android:title="Law"/>
+
+    <item android:id="@+id/math"
+        android:title="Mathmatics"/>
+
+    <item android:id="@+id/physics"
+        android:title="Physical Education"/>
+
+    <item android:id="@+id/science"
+        android:title="Science"/>
+
+    <item android:id="@+id/shariaa"
+        android:title="Shariaa"/>
+
+</menu>
