@@ -31,6 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.uj.mybook.R;
+import com.uj.mybook.Store.Store;
 import com.uj.mybook.login_signup.Login;
 import com.uj.mybook.profile.Profile;
 import com.uj.mybook.sell_book.BookSeller;
@@ -69,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         //Fill recyclerView with books from Firebase
         getBooksFromFirebase(-1);
 
@@ -179,6 +179,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public boolean onMenuItemClick(MenuItem item) {
                 String college = item.getTitle().toString();
                 Toast.makeText(MainActivity.this, college, Toast.LENGTH_LONG).show();
+                //open new books for sale and send the choosen string
+                Intent intent=new Intent(MainActivity.this,Store.class);
+                intent.putExtra("cat","Best");
+                startActivity(intent);
+
+
                 return true;
             }
         });

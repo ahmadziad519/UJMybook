@@ -9,6 +9,7 @@
     <string name="go_to_signup">not a user ?<u>sign up here</u>... </string>
     <string name="login_sentence">Reading a book is creating
         new way for your future.</string>
+
     <string-array name="colleges">
         <item>Agriculture</item>
         <item>Archaeology and Tourism</item>

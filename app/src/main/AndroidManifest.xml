@@ -27,6 +27,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".login_signup.Login" />
         <activity android:name=".login_signup.Signup" />
+        <activity android:name=".Store.Store" />
     </application>
 
 </manifest>
