@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(MainActivity.this, Profile.class));
 
         } else if (id == R.id.about) {
-
+            startActivity(new Intent(MainActivity.this, About.class));
         } else if (id == R.id.signout) {
             FirebaseAuth.getInstance().signOut();
             deleteUserInformation();

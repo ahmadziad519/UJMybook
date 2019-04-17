@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E0E0E0">
+
+
+    <TextView
+        android:id="@+id/about"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="104dp"
+        android:background="@android:color/white"
+        android:padding="3dp"
+        android:text="About MyBook:"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/aboutText"
+        android:layout_width="279dp"
+        android:layout_height="83dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/white"
+        android:padding="3dp"
+        android:text="This app created to help students to find their needed books it provides them to sell their own book also they can work with MyBook team."
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/about"
+        app:layout_constraintTop_toBottomOf="@+id/about" />
+
+    <TextView
+        android:id="@+id/idea"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginTop="12dp"
+        android:background="@android:color/white"
+        android:padding="3dp"
+        android:text="MyBook Idea:"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16dp"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aboutText" />
+
+    <TextView
+        android:id="@+id/ideaText"
+        android:layout_width="284dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/white"
+        android:padding="3dp"
+        android:text="Mybook idea is offering books to the students with lowest price and deliverd to their  place. "
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idea" />
+
+    <TextView
+        android:id="@+id/team"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="36dp"
+        android:layout_marginTop="12dp"
+        android:background="@android:color/white"
+        android:padding="3dp"
+        android:text="MyBook Team:"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ideaText" />
+
+    <TextView
+        android:id="@+id/teamText"
+        android:layout_width="316dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/white"
+        android:padding="3dp"
+        android:text="We are students in the University of Jordan studying Computer Information System(CIS), our team members are Ahmad Bayoud,Ameen Al Ameer, Suhaib Fatafta and Basil Al Masri. our vision is to improve the uses of technology in our community and innovate effective solutions for impact problems."
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="@+id/team"
+        app:layout_constraintTop_toBottomOf="@+id/team" />
+
+    <TextView
+        android:id="@+id/contact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:background="@android:color/white"
+        android:padding="3dp"
+        android:text="Contact Us:"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/email"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/email"
+        android:onClick="b1"
+        app:layout_constraintBaseline_toBaselineOf="@+id/contact"
+        app:layout_constraintEnd_toStartOf="@+id/call"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/contact"
+        />
+
+    <Button
+        android:id="@+id/call"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/call"
+        android:onClick="b2"
+        app:layout_constraintBaseline_toBaselineOf="@+id/email"
+        app:layout_constraintEnd_toStartOf="@+id/fb"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/email" />
+
+    <Button
+        android:id="@+id/fb"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/facebook"
+        android:onClick="b3"
+        app:layout_constraintBaseline_toBaselineOf="@+id/call"
+        app:layout_constraintEnd_toStartOf="@+id/twitter"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/call" />
+
+    <Button
+        android:id="@+id/twitter"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/twitter"
+        android:onClick="b4"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fb"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/fb" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/about_logo" />
+
+</android.support.constraint.ConstraintLayout>

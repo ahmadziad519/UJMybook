@@ -43,6 +43,7 @@ import com.google.firebase.storage.UploadTask;
 import com.uj.mybook.R;
 import com.uj.mybook.main.Book;
 import com.uj.mybook.main.BooksAdapter;
+import com.uj.mybook.main.User;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -93,15 +94,17 @@ public class Profile extends AppCompatActivity {
 
         preferences = getSharedPreferences("user", MODE_PRIVATE);
         editor = preferences.edit();
+        String userNumber = preferences.getString("number", "");
+        tvPhoneNumber.setText("Phone Number: " + userNumber);
 
-        String stImageUrl, stUserName;
+        final String stImageUrl, stUserName;
 
-        stImageUrl= preferences.getString("imageUrl", "");
+        stImageUrl = preferences.getString("imageUrl", "");
         if (!TextUtils.isEmpty(stImageUrl)) {
             Glide.with(this).load(stImageUrl).into(ivPicture);
             Drawable drawable = ivPicture.getDrawable();
         }
-        stUserName = preferences.getString("firstName","") + " " + preferences.getString("lastName","");
+        stUserName = preferences.getString("firstName", "") + " " + preferences.getString("lastName", "");
         tvUserName.setText(stUserName);
 
 
@@ -179,57 +182,30 @@ public class Profile extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                if (imageUri == null) {
-                    Toast.makeText(Profile.this, "Please add picture", Toast.LENGTH_SHORT).show();
+                final String stNumber = etEditNumber.getText().toString();
+                if (TextUtils.isEmpty(stNumber) || stNumber.length()!=10) {
+                    Toast.makeText(Profile.this, "Please add a valid phone number", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 final ProgressDialog dialog = new ProgressDialog(Profile.this);
-                dialog.setMessage("Uploading...");
+                dialog.setMessage("Updating..");
                 dialog.show();
-                final StorageReference storageReference = FirebaseStorage.getInstance().getReference("profile_pictures/" + "1111" + getImageExtention(imageUri));
-
-                UploadTask uploadTask = storageReference.putFile(imageUri);
-
-                Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                    @Override
-                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                        if (!task.isSuccessful()) {
-                            throw task.getException();
-                        }
-
-                        return storageReference.getDownloadUrl();
-                    }
-                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Uri> task) {
-                        if (task.isSuccessful()) {
-                            Uri downloadUri = task.getResult();
-                            uploadedImageUrl = downloadUri.toString();
-                            editor.putString("imageUrl", uploadedImageUrl);
-                            editor.commit();
-                            dialog.dismiss();
-                            Toast.makeText(Profile.this, "Image Uploaded Successfully", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(Profile.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-                });
-
-
-                String userID = preferences.getString("id", "");
-
                 DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference("Users");
-                dbReference.child(userID).child("imageUrl").setValue(uploadedImageUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
+                String userID = preferences.getString("id", "");
+                dbReference.child(userID).child("number").setValue(stNumber)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                        } else {
-                            Toast.makeText(Profile.this, "Something went wrong!", Toast.LENGTH_LONG).show();
+                        if(task.isSuccessful()){
+                            dialog.dismiss();
+                            Toast.makeText(Profile.this, "Phone number updated successfully", Toast.LENGTH_SHORT).show();
+                            etEditNumber.setText("");
+                            tvPhoneNumber.setText(stNumber);
+                            editor.putString("number", stNumber);
+                            editor.commit();
                         }
                     }
                 });
-
 
             }
         });
@@ -246,6 +222,7 @@ public class Profile extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "Select image"), REQUEST_CODE);
             }
         });
+
     }
 
     @Override
@@ -257,9 +234,13 @@ public class Profile extends AppCompatActivity {
             try {
                 Bitmap bm = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                 ivPicture.setImageBitmap(bm);
+                Thread.sleep(1000);
+                uploadImage();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -318,7 +299,58 @@ public class Profile extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void uploadImage(){
+        final ProgressDialog dialog = new ProgressDialog(Profile.this);
+        dialog.setMessage("Uploading...");
+        dialog.show();
+        final StorageReference storageReference = FirebaseStorage.getInstance().getReference("profile_pictures/" + "1111" + getImageExtention(imageUri));
+
+        UploadTask uploadTask = storageReference.putFile(imageUri);
+
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+
+                return storageReference.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
+                    uploadedImageUrl = downloadUri.toString();
+                    editor.putString("imageUrl", uploadedImageUrl);
+                    editor.commit();
+                    dialog.dismiss();
+                    Toast.makeText(Profile.this, "Image Uploaded Successfully", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(Profile.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+
+        String userID = preferences.getString("id", "");
+
+        DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference("Users");
+        dbReference.child(userID).child("imageUrl").setValue(uploadedImageUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                } else {
+                    Toast.makeText(Profile.this, "Something went wrong!", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
     }
+
+
 
 }

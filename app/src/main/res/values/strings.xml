@@ -7,9 +7,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="go_to_signup">not a user ?<u>sign up here</u>... </string>
-    <string name="login_sentence">Reading a book is creating
-        new way for your future.</string>
-
+    <string name="login_sentence">“When you open a book, you open a new world”</string>
     <string-array name="colleges">
         <item>Agriculture</item>
         <item>Archaeology and Tourism</item>
@@ -39,6 +37,31 @@
         <item>Science fiction</item>
         <item>Self Help</item>
         <item>Sport</item>
+    </string-array>
+
+    <string-array name="days">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+    </string-array>
+
+    <string-array name="time">
+        <item>8-9</item>
+        <item>12-1</item>
+        <item>2-3</item>
+        <item>4-5</item>
+    </string-array>
+
+    <string-array name="delivery_places">
+        <item>Humanity</item>
+        <item>Science College</item>
+        <item>Main Gate</item>
+        <item>North Gate</item>
+        <item>South Gate</item>
+        <item>Medicine College</item>
+        <item>Clock Tower</item>
     </string-array>
 
 

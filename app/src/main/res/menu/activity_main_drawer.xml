@@ -7,15 +7,15 @@
         <item
             android:id="@+id/buy"
             android:icon="@drawable/shopping_cart"
-            android:title="Buy" />
+            android:title="Buy books" />
         <item
             android:id="@+id/exchange"
             android:icon="@drawable/exchange"
-            android:title="Exchange" />
+            android:title="Free books" />
         <item
             android:id="@+id/sell"
             android:icon="@drawable/money"
-            android:title="Sell" />
+            android:title="Sell books" />
         <item
             android:id="@+id/account"
             android:icon="@drawable/person"
@@ -23,7 +23,7 @@
         <item
             android:id="@+id/about"
             android:icon="@drawable/business"
-            android:title="About" />
+            android:title="About"/>
         <item
             android:id="@+id/signout"
             android:icon="@drawable/signout"

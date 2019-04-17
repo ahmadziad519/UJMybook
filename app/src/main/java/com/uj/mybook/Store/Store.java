@@ -53,17 +53,17 @@ public class Store extends AppCompatActivity {
         //get catagory from Intent
 
 
-        String cat= getIntent().getStringExtra("cat");
-        Toast.makeText(this,cat,Toast.LENGTH_LONG).show();
+        String cat = getIntent().getStringExtra("cat");
+        Toast.makeText(this, cat, Toast.LENGTH_LONG).show();
 
-        if(cat!=null)
-        getBooksFromFirebase(cat);
-else
-    Toast.makeText(this,"no string",Toast.LENGTH_LONG).show();
+        if (cat != null)
+            getBooksFromFirebase(cat);
+        else
+            Toast.makeText(this, "no string", Toast.LENGTH_LONG).show();
 
     }
 
-    public void getBooksFromFirebase(String id){
+    public void getBooksFromFirebase(String id) {
         //String cat as parameter
         final ProgressDialog progressDialog = new ProgressDialog(Store.this);
         progressDialog.setMessage("Loading...");
@@ -71,28 +71,28 @@ else
         progressDialog.show();
         DatabaseReference dbReference;
         books.clear();
-            dbReference = FirebaseDatabase.getInstance().getReference(id);
-            dbReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                        Book book = snapshot.getValue(Book.class);
-                        books.add(book);
-                    }
-
-                    booksAdapter = new BooksAdapter(books,Store.this);
-                    recyclerView.setLayoutManager(layoutManager);
-                    recyclerView.setAdapter(booksAdapter);
-                    progressDialog.dismiss();
-
+        dbReference = FirebaseDatabase.getInstance().getReference(id);
+        dbReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Book book = snapshot.getValue(Book.class);
+                    books.add(book);
                 }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(getApplicationContext(),"Error Happened",Toast.LENGTH_LONG).show();
+                booksAdapter = new BooksAdapter(books, Store.this);
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(booksAdapter);
+                progressDialog.dismiss();
 
-                }
-            });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(), "Error Happened", Toast.LENGTH_LONG).show();
+
+            }
+        });
 
 
     }

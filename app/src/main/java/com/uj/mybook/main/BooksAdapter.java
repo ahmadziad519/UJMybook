@@ -2,16 +2,20 @@ package com.uj.mybook.main;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.uj.mybook.OrderInformation;
 import com.uj.mybook.R;
+import com.uj.mybook.sell_book.OrderDialog;
 
 import java.util.List;
 
@@ -44,13 +48,35 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
-
+        final String stBookName, stBookImageUrl, stAuthor, stCategory, stPrice;
         final Book book = books.get(position);
-        holder.bookName.setText(book.getBookName());
-        Glide.with(myContext).load(book.getImageUrl()).into(holder.bookImage);
-        holder.author.setText(book.getAuthor());
-        holder.category.setText(book.getCategory());
-        holder.price.setText(book.getPrice());
+        stBookName = book.getBookName();
+        stBookImageUrl = book.getImageUrl();
+        stAuthor = book.getAuthor();
+        stCategory = book.getCategory();
+        stPrice = book.getPrice();
+
+
+        holder.bookName.setText(stBookName);
+        Glide.with(myContext).load(stBookImageUrl).into(holder.bookImage);
+        holder.author.setText(stAuthor);
+        holder.category.setText(stCategory);
+        holder.price.setText(stPrice);
+
+        holder.btnOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), OrderInformation.class);
+                intent.putExtra("bookName", stBookName);
+                intent.putExtra("imageUrl", stBookImageUrl);
+                intent.putExtra("author", stAuthor);
+                intent.putExtra("price", stPrice);
+                OrderDialog dialog = new OrderDialog(myContext, stBookName, stBookImageUrl, stAuthor, stPrice);
+                dialog.show();
+                //v.getContext().startActivity(intent);
+            }
+        });
+
 
         holder.description.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +89,8 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
             }
         });
 
+
+
     }
 
     @Override
@@ -71,12 +99,13 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView bookName;
-        public ImageView bookImage;
-        public TextView author;
-        public TextView category;
-        public TextView description;
-        public TextView price;
+        private TextView bookName;
+        private ImageView bookImage;
+        private TextView author;
+        private TextView category;
+        private TextView description;
+        private TextView price;
+        private Button btnOrder;
 
         public MyViewHolder(View itemView, final OnItemLongClickListner listner) {
             super(itemView);
@@ -86,6 +115,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
             category = itemView.findViewById(R.id.catagory);
             description = itemView.findViewById(R.id.description);
             price = itemView.findViewById(R.id.price);
+            btnOrder = itemView.findViewById(R.id.order);
 
         }
 
