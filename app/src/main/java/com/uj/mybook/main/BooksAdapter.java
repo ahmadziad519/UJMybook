@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.uj.mybook.OrderInformation;
 import com.uj.mybook.R;
 import com.uj.mybook.sell_book.OrderDialog;
 
@@ -66,14 +65,8 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
         holder.btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), OrderInformation.class);
-                intent.putExtra("bookName", stBookName);
-                intent.putExtra("imageUrl", stBookImageUrl);
-                intent.putExtra("author", stAuthor);
-                intent.putExtra("price", stPrice);
                 OrderDialog dialog = new OrderDialog(myContext, stBookName, stBookImageUrl, stAuthor, stPrice);
                 dialog.show();
-                //v.getContext().startActivity(intent);
             }
         });
 

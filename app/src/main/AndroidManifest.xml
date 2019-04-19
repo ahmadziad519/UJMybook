@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".main.About"></activity>
-        <activity android:name=".OrderInformation" />
         <activity android:name=".sell_book.BookSeller" />
         <activity android:name=".profile.Profile" />
         <activity android:name=".login_signup.Splash">
