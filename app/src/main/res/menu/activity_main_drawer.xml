@@ -5,13 +5,17 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/buy"
+            android:id="@+id/academic"
             android:icon="@drawable/shopping_cart"
-            android:title="Buy books" />
+            android:title="Academic" />
         <item
-            android:id="@+id/exchange"
+            android:id="@+id/non_academic"
             android:icon="@drawable/exchange"
-            android:title="Free books" />
+            android:title="Non-Academic" />
+        <item
+            android:id="@+id/paper_studies"
+            android:icon="@drawable/ic_insert_drive_file_black_24dp"
+            android:title="Paper Studies" />
         <item
             android:id="@+id/sell"
             android:icon="@drawable/money"

@@ -1,8 +1,8 @@
-package com.uj.mybook.main;
+package com.uj.mybook.profile;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,27 +11,34 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.uj.mybook.R;
+import com.uj.mybook.main.Book;
+import com.uj.mybook.main.BooksAdapter;
 import com.uj.mybook.sell_book.OrderDialog;
 
 import java.util.List;
 
-public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder> {
+public class MyOrdersAdapter extends RecyclerView.Adapter<MyOrdersAdapter.MyViewHolder> {
     private List<Book> books;
     private Context myContext;
     private int layout;
+    private SharedPreferences preferences;
 
-    public BooksAdapter(List<Book> books, Context myContext, int layout) {
+    public MyOrdersAdapter(List<Book> books, Context myContext, int layout) {
         this.books = books;
         this.myContext = myContext;
         this.layout = layout;
+        preferences =myContext.getSharedPreferences("user",Context.MODE_PRIVATE);
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyOrdersAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         view = LayoutInflater.from(myContext).inflate(layout, parent, false);
         MyViewHolder myViewHolder = new MyViewHolder(view);
@@ -39,17 +46,19 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
-        final String stBookName, stBookImageUrl, stAuthor, stDescription, stCategory,stBookType, stPrice;
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        final String stBookName, stBookImageUrl, stAuthor, stCategory ,stBookType, stDescription, stPrice, userID;
         final Book book = books.get(position);
+        final DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference("Books");
+
         stBookName = book.getBookName();
         stBookImageUrl = book.getImageUrl();
         stAuthor = book.getAuthor();
-        stDescription = book.getDescription();
         stCategory = book.getCategory();
-        stBookType = book.getBookType();
         stPrice = book.getPrice();
-
+        stDescription = book.getDescription();
+        stBookType = book.getBookType();
+        userID = preferences.getString("id","");
 
         holder.bookName.setText(stBookName);
         Glide.with(myContext).load(stBookImageUrl).into(holder.bookImage);
@@ -57,12 +66,11 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
         holder.category.setText(stCategory);
         holder.price.setText(stPrice);
 
-        holder.btnOrder.setOnClickListener(new View.OnClickListener() {
+        holder.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OrderDialog dialog = new OrderDialog(myContext, stBookName, stBookImageUrl,  stAuthor,
-                                                      stDescription, stCategory, stBookType, stPrice);
-                dialog.show();
+                Book book1 = new Book(stBookName, stBookImageUrl, stAuthor, stDescription, stCategory, stBookType, stPrice);
+                dbReference.child(stBookType).child(stCategory).push().setValue(book);
             }
         });
 
@@ -76,7 +84,6 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
 
             }
         });
-
     }
 
     @Override
@@ -91,17 +98,17 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
         private TextView category;
         private TextView description;
         private TextView price;
-        private Button btnOrder;
+        private Button btnCancel;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             bookName = itemView.findViewById(R.id.bookName);
             bookImage = itemView.findViewById(R.id.bookImage);
             author = itemView.findViewById(R.id.author);
-            category = itemView.findViewById(R.id.catagory);
+            category = itemView.findViewById(R.id.category);
             description = itemView.findViewById(R.id.description);
             price = itemView.findViewById(R.id.price);
-            btnOrder = itemView.findViewById(R.id.order);
+            btnCancel = itemView.findViewById(R.id.cancel);
 
         }
 

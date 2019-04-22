@@ -9,14 +9,11 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -28,10 +25,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,8 +36,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.uj.mybook.R;
 import com.uj.mybook.main.Book;
-import com.uj.mybook.main.BooksAdapter;
-import com.uj.mybook.main.User;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -54,7 +46,7 @@ public class Profile extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private List<Book> books;
-    private BooksAdapter booksAdapter;
+    private MyOrdersAdapter adapter;
     private Button btnMyOrders, btnMyOffers;
     private int buttonID = 0;
     private EditText etEditNumber;
@@ -88,9 +80,9 @@ public class Profile extends AppCompatActivity {
 
         editProfile();
 
-        booksAdapter = new BooksAdapter(books, Profile.this);
+        adapter = new MyOrdersAdapter(books, Profile.this, R.layout.profile_card);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(booksAdapter);
+        recyclerView.setAdapter(adapter);
 
         preferences = getSharedPreferences("user", MODE_PRIVATE);
         editor = preferences.edit();
@@ -261,15 +253,17 @@ public class Profile extends AppCompatActivity {
         books.clear();
 
         if (id == 1) {
-            dbReference = FirebaseDatabase.getInstance().getReference("Latest");
-            dbReference.addValueEventListener(new ValueEventListener() {
+            String userID = preferences.getString("id","");
+            dbReference = FirebaseDatabase.getInstance().getReference("Orders");
+
+            dbReference.child(userID).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Book book = snapshot.getValue(Book.class);
                         books.add(book);
                     }
-                    booksAdapter.notifyDataSetChanged();
+                    adapter.notifyDataSetChanged();
                     progressDialog.dismiss();
 
 
@@ -289,7 +283,7 @@ public class Profile extends AppCompatActivity {
                         Book book = snapshot.getValue(Book.class);
                         books.add(book);
                     }
-                    booksAdapter.notifyDataSetChanged();
+                    adapter.notifyDataSetChanged();
                     progressDialog.dismiss();
                 }
 

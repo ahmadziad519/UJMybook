@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/advanture"
+        android:title="Advanture"/>
+
+    <item android:id="@+id/drama"
+        android:title="Drama"/>
+
+    <item android:id="@+id/history"
+        android:title="History"/>
+
+    <item android:id="@+id/horror"
+        android:title="Horror"/>
+
+    <item android:id="@+id/mystery"
+        android:title="Mystery"/>
+
+    <item android:id="@+id/romance"
+        android:title="Romance"/>
+
+    <item android:id="@+id/satire"
+        android:title="Satire"/>
+
+    <item android:id="@+id/science_fiction"
+        android:title="Science fiction"/>
+
+    <item android:id="@+id/self_Help"
+        android:title="Self Help"/>
+
+    <item android:id="@+id/sport"
+        android:title="Sport"/>
+
+</menu>

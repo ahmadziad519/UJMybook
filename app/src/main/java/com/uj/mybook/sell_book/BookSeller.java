@@ -145,7 +145,7 @@ public class BookSeller extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Uri downloadUri = task.getResult();
                             uploadedImageUrl = downloadUri.toString();
-                            book = new Book(stBookName, uploadedImageUrl, stAuthor, stDescription, stBookCategory, stPrice);
+                            book = new Book(stBookName, uploadedImageUrl, stAuthor, stDescription, stBookCategory,stBookType, stPrice);
                             dbReference.child(stBookType).child(stBookCategory).push().setValue(book).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {

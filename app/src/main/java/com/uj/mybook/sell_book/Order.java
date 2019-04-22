@@ -2,9 +2,12 @@ package com.uj.mybook.sell_book;
 
 public class Order {
     private String bookName;
-    private String bookAuthor;
-    private String bookPrice;
-    private String bookImageUrl;
+    private String imageUrl;
+    private String author;
+    private String description;
+    private String category;
+    private String bookType;
+    private String price;
     private String stFullName;
     private String stNumber;
     private String date;
@@ -14,11 +17,16 @@ public class Order {
     public Order() {
     }
 
-    public Order(String bookName, String bookAuthor, String bookPrice, String bookImageUrl, String stFullName, String stNumber, String date, String time, String place) {
+    public Order(String bookName, String imageUrl, String author, String description,
+                 String category, String bookType, String price, String stFullName,
+                 String stNumber, String date, String time, String place) {
         this.bookName = bookName;
-        this.bookAuthor = bookAuthor;
-        this.bookPrice = bookPrice;
-        this.bookImageUrl = bookImageUrl;
+        this.imageUrl = imageUrl;
+        this.author = author;
+        this.description = description;
+        this.category = category;
+        this.bookType = bookType;
+        this.price = price;
         this.stFullName = stFullName;
         this.stNumber = stNumber;
         this.date = date;
@@ -26,12 +34,28 @@ public class Order {
         this.place = place;
     }
 
-    public String getBookImageUrl() {
-        return bookImageUrl;
+    public String getCategory() {
+        return category;
     }
 
-    public void setBookImageUrl(String bookImageUrl) {
-        this.bookImageUrl = bookImageUrl;
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getBookType() {
+        return bookType;
+    }
+
+    public void setBookType(String bookType) {
+        this.bookType = bookType;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getBookName() {
@@ -42,20 +66,28 @@ public class Order {
         this.bookName = bookName;
     }
 
-    public String getBookAuthor() {
-        return bookAuthor;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setBookAuthor(String bookAuthor) {
-        this.bookAuthor = bookAuthor;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public String getBookPrice() {
-        return bookPrice;
+    public String getPrice() {
+        return price;
     }
 
-    public void setBookPrice(String bookPrice) {
-        this.bookPrice = bookPrice;
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getStFullName() {

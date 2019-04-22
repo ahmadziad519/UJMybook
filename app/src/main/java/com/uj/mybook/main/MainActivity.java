@@ -133,10 +133,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
 
         int id = item.getItemId();
-        if (id == R.id.buy) {
-            showColleges();
-        } else if (id == R.id.exchange) {
-            showColleges();
+        if (id == R.id.academic) {
+            showColleges("Academic" );
+        } else if (id == R.id.non_academic) {
+            showColleges("Non-Academic");
+        }else if (id == R.id.paper_studies) {
+            showColleges("PaperStudies");
         } else if (id == R.id.sell) {
             startActivity(new Intent(MainActivity.this, BookSeller.class));
 
@@ -165,26 +167,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         editor.putString("college", " ");
         editor.putString("imageUrl", " ");
         editor.commit();
-
-
     }
 
-    private void showColleges() {
+    private void showColleges(final String bookType) {
         PopupMenu popupMenu = new PopupMenu(MainActivity.this, toolbar);
-        popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
-
+        if(bookType.equalsIgnoreCase("non-academic")) {
+            popupMenu.getMenuInflater().inflate(R.menu.categories_popup_menu, popupMenu.getMenu());
+        } else{
+            popupMenu.getMenuInflater().inflate(R.menu.colleges_popup_menu, popupMenu.getMenu());
+        }
 
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                String college = item.getTitle().toString();
-                Toast.makeText(MainActivity.this, college, Toast.LENGTH_LONG).show();
-                //open new books for sale and send the choosen string
+                String category = item.getTitle().toString();
                 Intent intent=new Intent(MainActivity.this,Store.class);
-                intent.putExtra("cat","Best");
+                intent.putExtra("category",category);
+                intent.putExtra("bookType",bookType);
                 startActivity(intent);
-
-
                 return true;
             }
         });
@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         books.add(book);
                     }
 
-                    booksAdapter = new BooksAdapter(books,MainActivity.this);
+                    booksAdapter = new BooksAdapter(books,MainActivity.this, R.layout.book_card);
                     recyclerView.setLayoutManager(layoutManager);
                     recyclerView.setAdapter(booksAdapter);
                     progressDialog.dismiss();
@@ -235,8 +235,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                     booksAdapter.notifyDataSetChanged();
                     progressDialog.dismiss();
-
-
                 }
 
                 @Override

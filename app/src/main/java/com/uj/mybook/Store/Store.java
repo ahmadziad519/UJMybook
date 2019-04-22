@@ -29,18 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Store extends AppCompatActivity {
-
-    private DrawerLayout drawer;
-    private Toolbar toolbar;
-    private SharedPreferences preferences;
-    private ImageView userPicture;
-    private TextView username;
-    private Button btnLatest, btnBest;
     private List<Book> books;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private BooksAdapter booksAdapter;
-    private int buttonID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,29 +42,21 @@ public class Store extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView = findViewById(R.id.recyclerView_sooq);
 
-        //get catagory from Intent
+        String stCategory = getIntent().getStringExtra("category");
+        String stBookType = getIntent().getStringExtra("bookType");
 
-
-        String cat = getIntent().getStringExtra("cat");
-        Toast.makeText(this, cat, Toast.LENGTH_LONG).show();
-
-        if (cat != null)
-            getBooksFromFirebase(cat);
-        else
-            Toast.makeText(this, "no string", Toast.LENGTH_LONG).show();
-
+        getBooksFromFirebase(stCategory, stBookType);
     }
 
-    public void getBooksFromFirebase(String id) {
-        //String cat as parameter
+    public void getBooksFromFirebase(String category, String bookType) {
         final ProgressDialog progressDialog = new ProgressDialog(Store.this);
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
         progressDialog.show();
         DatabaseReference dbReference;
         books.clear();
-        dbReference = FirebaseDatabase.getInstance().getReference(id);
-        dbReference.addValueEventListener(new ValueEventListener() {
+        dbReference = FirebaseDatabase.getInstance().getReference("Books");
+        dbReference.child(bookType).child(category).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -80,11 +64,10 @@ public class Store extends AppCompatActivity {
                     books.add(book);
                 }
 
-                booksAdapter = new BooksAdapter(books, Store.this);
+                booksAdapter = new BooksAdapter(books, Store.this, R.layout.book_card);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(booksAdapter);
                 progressDialog.dismiss();
-
             }
 
             @Override
@@ -93,7 +76,5 @@ public class Store extends AppCompatActivity {
 
             }
         });
-
-
     }
 }

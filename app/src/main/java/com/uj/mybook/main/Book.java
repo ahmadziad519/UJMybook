@@ -6,18 +6,32 @@ public class Book {
     private String author;
     private String description;
     private String category;
+    private String bookType;
     private String price;
 
     public Book() {
     }
 
-    public Book(String bookName, String imageUrl, String author, String description, String category, String price) {
+    public Book(String bookName, String imageUrl, String author, String description, String category, String bookType, String price) {
         this.bookName = bookName;
         this.imageUrl = imageUrl;
         this.author = author;
         this.description = description;
         this.category = category;
+        this.bookType = bookType;
         this.price = price;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getBookType() {
+        return bookType;
+    }
+
+    public void setBookType(String bookType) {
+        this.bookType = bookType;
     }
 
     public String getBookName() {

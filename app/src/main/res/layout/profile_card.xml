@@ -17,7 +17,7 @@
             android:id="@+id/relativeLayout2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/card_background"
+            android:background="@drawable/profile_background"
             android:orientation="vertical"
             tools:layout_editor_absoluteY="81dp">
 
@@ -28,7 +28,6 @@
                 android:layout_height="150dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:scaleType="centerCrop"
                 android:src="@drawable/default_book"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/bookName" />
@@ -43,7 +42,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:text="Harry potter and the sorcerer's stone"
-                android:textColor="@android:color/white"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="22sp"
                 android:typeface="normal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -58,18 +57,18 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:text="By:  J.K. Rowling"
-                android:textColor="@android:color/white"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/bookImage"
                 app:layout_constraintTop_toBottomOf="@+id/bookName" />
 
             <TextView
-                android:id="@+id/catagory"
+                android:id="@+id/category"
                 android:layout_width="190dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Category: Science Fiction"
-                android:textColor="@android:color/white"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@+id/author"
                 app:layout_constraintTop_toBottomOf="@+id/author" />
@@ -82,19 +81,19 @@
                 android:layout_marginLeft="36dp"
                 android:layout_marginTop="8dp"
                 android:text="10JD"
-                android:textColor="@android:color/white"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bookImage" />
 
             <TextView
                 android:id="@+id/description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="120dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="8dp"
                 android:maxLength="20"
                 android:text="Description..."
-                android:background="@color/blue_btn"
+                android:background="@color/blue_nav"
                 android:paddingTop="2dp"
                 android:paddingBottom="2dp"
                 android:paddingLeft="6dp"
@@ -104,18 +103,18 @@
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/catagory"
-                app:layout_constraintTop_toBottomOf="@+id/catagory" />
+                app:layout_constraintStart_toStartOf="@+id/category"
+                app:layout_constraintTop_toBottomOf="@+id/category" />
 
             <Button
-                android:id="@+id/order"
+                android:id="@+id/cancel"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="224dp"
                 android:layout_marginLeft="224dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/button_style_gray"
-                android:text="Order"
+                android:background="@color/blue_nav"
+                android:text="Cancel"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="17sp"
